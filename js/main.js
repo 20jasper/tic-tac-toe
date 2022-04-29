@@ -1,7 +1,14 @@
 const keys = document.querySelector('.gamearea');
-let currentPlayer = 'x'
+let currentPlayer = firstPlayer()
 document.querySelector('h3').innerText = `${currentPlayer.toUpperCase()}'s turn`
 
+//get random first player
+function firstPlayer() {
+  if (Math.random() * 2 > 1) {
+    return 'x'
+  }
+  return 'o'
+}
 
 keys.addEventListener('click', event => {
   console.log(event);
@@ -84,7 +91,7 @@ function addCharacter(character, value) {
   return arr;
 }
 function changeCharacter(character) {
-  
+
   let newCharacter = ''
 
   if (character == 'x') {
@@ -100,7 +107,7 @@ function changeCharacter(character) {
 
 let count = 0
 function didSomeoneWin(character) {
-  
+
   // horizontal win check
   for (let y = 0; y < arr.length; y++) {
     const row = arr[y];
@@ -134,11 +141,11 @@ function didSomeoneWin(character) {
   count++
 };
 
-function gameOver(){
+function gameOver() {
   document.querySelector('main').style.filter = 'blur(5px)';
   // document.querySelector('h2').classList.add('animation');
   document.querySelector('h2').classList.toggle('hidden');
-  
+
 }
 
 function someoneWon(character) {
