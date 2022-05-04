@@ -1,165 +1,153 @@
-const keys = document.querySelector('.gamearea');
-let currentPlayer = firstPlayer()
-document.querySelector('h3').innerText = `${currentPlayer.toUpperCase()}'s turn`
-
-//get random first player
-function firstPlayer() {
-  if (Math.random() * 2 > 1) {
-    return 'x'
+class TicTacToe {
+  constructor() {
+    this.firstPlayer = this.firstPlayer()
+    this.currentPlayer = this.firstPlayer
+    this.gameBoard = [
+      [null, null, null],
+      [null, null, null],
+      [null, null, null]
+    ];
+    this.turn = 0
   }
-  return 'o'
-}
-
-keys.addEventListener('click', event => {
-  console.log(event);
-  const { target } = event;
-  const { value } = target;
-  if (!target.matches('button')) {
-    return;
-  } else {
-    //add character to array
-    addCharacter(currentPlayer, value);
+  startGame() {
+    this.addEventListeners()
+  }
+  addEventListeners() {
+    const keys = document.querySelector('.gamearea');
+    keys.addEventListener('click', event => {
+      const { target } = event;
+      const { value } = target;
+      if (!target.matches('button')) {
+        return;
+      } else {
+        //add character to array
+        this.addCharacter(value);
+      }
+    });
+  }
+  firstPlayer() {
+    if (Math.random() * 2 > 1) {
+      document.querySelector('h3').innerText = `${'x'.toUpperCase()}'s turn`
+      return 'x'
+    }
+    document.querySelector('h3').innerText = `${'o'.toUpperCase()}'s turn`
+    return 'o'
+  }
+  changeCharacter() {
+    this.turn++
+    let nextCharacter
+    if (this.currentPlayer == 'x') {
+      nextCharacter = 'o'
+    }
+    if (this.currentPlayer == 'o') {
+      nextCharacter = 'x'
+    }
+    document.querySelector('h3').innerText = `${this.currentPlayer.toUpperCase()}'s turn`
+    this.currentPlayer = nextCharacter
+  }
+  addCharacter(value) {
+    if (value == 1) {
+      ticTacToe.gameBoard[0][0] = this.currentPlayer;
+      document.getElementById('box1').innerHTML = this.currentPlayer
+      document.getElementById('box1').setAttribute('disabled', '')
+    };
+    if (value == 2) {
+      ticTacToe.gameBoard[0][1] = this.currentPlayer;
+      document.getElementById('box2').innerHTML = this.currentPlayer
+      document.getElementById('box2').setAttribute('disabled', '')
+    };
+    if (value == 3) {
+      ticTacToe.gameBoard[0][2] = this.currentPlayer;
+      document.getElementById('box3').innerHTML = this.currentPlayer
+      document.getElementById('box3').setAttribute('disabled', '')
+    };
+    if (value == 4) {
+      ticTacToe.gameBoard[1][0] = this.currentPlayer;
+      document.getElementById('box4').innerHTML = this.currentPlayer
+      document.getElementById('box4').setAttribute('disabled', '')
+    };
+    if (value == 5) {
+      ticTacToe.gameBoard[1][1] = this.currentPlayer;
+      document.getElementById('box5').innerHTML = this.currentPlayer
+      document.getElementById('box5').setAttribute('disabled', '')
+    };
+    if (value == 6) {
+      ticTacToe.gameBoard[1][2] = this.currentPlayer;
+      document.getElementById('box6').innerHTML = this.currentPlayer
+      document.getElementById('box6').setAttribute('disabled', '')
+    };
+    if (value == 7) {
+      ticTacToe.gameBoard[2][0] = this.currentPlayer;
+      document.getElementById('box7').innerHTML = this.currentPlayer
+      document.getElementById('box7').setAttribute('disabled', '')
+    };
+    if (value == 8) {
+      ticTacToe.gameBoard[2][1] = this.currentPlayer;
+      document.getElementById('box8').innerHTML = this.currentPlayer
+      document.getElementById('box8').setAttribute('disabled', '')
+    };
+    if (value == 9) {
+      ticTacToe.gameBoard[2][2] = this.currentPlayer;
+      document.getElementById('box9').innerHTML = this.currentPlayer
+      document.getElementById('box9').setAttribute('disabled', '')
+    };
     //check to see if character won/draw
-    console.log(didSomeoneWin(currentPlayer))
+    this.didSomeoneWin()
+  }
+  didSomeoneWin() {
+    // horizontal win check
+    for (let y = 0; y < ticTacToe.gameBoard.length; y++) {
+      const row = ticTacToe.gameBoard[y];
+      if (row[0] == this.currentPlayer && row[1] == this.currentPlayer && row[2] == this.currentPlayer) {
+        return this.someoneWon();
+      }
+    };
+    //vertical win check
+    for (let x = 0; x < ticTacToe.gameBoard.length; x++) {
+      if (ticTacToe.gameBoard[0][x] == this.currentPlayer && ticTacToe.gameBoard[1][x] == this.currentPlayer && ticTacToe.gameBoard[2][x] == this.currentPlayer) {
+        return this.someoneWon();
+      }
+    };
+    //diagonal win check
+    if (ticTacToe.gameBoard[0][0] === this.currentPlayer && ticTacToe.gameBoard[1][1] === this.currentPlayer && ticTacToe.gameBoard[2][2] === this.currentPlayer) {
+      return this.someoneWon();
+    }
+    if (ticTacToe.gameBoard[2][0] == this.currentPlayer && ticTacToe.gameBoard[1][1] == this.currentPlayer && ticTacToe.gameBoard[0][2] == this.currentPlayer) {
+      return this.someoneWon();
+    }
+    //if all boxes are filled, it's a draw
+    if (this.turn == 8) {
+      document.querySelector('h2').innerText = `IT'S A TIE!`
+      this.gameOver()
+    }
     //change character 
-    currentPlayer = changeCharacter(currentPlayer)
+    this.changeCharacter()
+  };
+  someoneWon() {
+    document.querySelector('h2').innerText = `PLAYER ${this.currentPlayer.toUpperCase()} WON!`;
+    this.gameOver()
+
+    //disable all boxes
+    document.getElementById(`box1`).setAttribute('disabled', '')
+    document.getElementById(`box2`).setAttribute('disabled', '')
+    document.getElementById(`box3`).setAttribute('disabled', '')
+    document.getElementById(`box4`).setAttribute('disabled', '')
+    document.getElementById(`box5`).setAttribute('disabled', '')
+    document.getElementById(`box6`).setAttribute('disabled', '')
+    document.getElementById(`box7`).setAttribute('disabled', '')
+    document.getElementById(`box8`).setAttribute('disabled', '')
+    document.getElementById(`box9`).setAttribute('disabled', '')
   }
-});
-
-const arr = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null]
-];
-
-function addCharacter(character, value) {
-  console.log({ character, value });
-  if (value == 1) {
-    console.log(arr);
-    arr[0][0] = character;
-    document.getElementById('box1').innerHTML = character
-    document.getElementById('box1').setAttribute('disabled', '')
-  };
-  if (value == 2) {
-    console.log(arr)
-    arr[0][1] = character;
-    document.getElementById('box2').innerHTML = character
-    document.getElementById('box2').setAttribute('disabled', '')
-  };
-  if (value == 3) {
-    console.log(arr);
-    arr[0][2] = character;
-    document.getElementById('box3').innerHTML = character
-    document.getElementById('box3').setAttribute('disabled', '')
-  };
-  if (value == 4) {
-    console.log(arr);
-    arr[1][0] = character;
-    document.getElementById('box4').innerHTML = character
-    document.getElementById('box4').setAttribute('disabled', '')
-  };
-  if (value == 5) {
-    console.log(arr);
-    arr[1][1] = character;
-    document.getElementById('box5').innerHTML = character
-    document.getElementById('box5').setAttribute('disabled', '')
-  };
-  if (value == 6) {
-    console.log(arr);
-    arr[1][2] = character;
-    document.getElementById('box6').innerHTML = character
-    document.getElementById('box6').setAttribute('disabled', '')
-  };
-  if (value == 7) {
-    console.log(arr);
-    arr[2][0] = character;
-    document.getElementById('box7').innerHTML = character
-    document.getElementById('box7').setAttribute('disabled', '')
-  };
-  if (value == 8) {
-    console.log(arr);
-    arr[2][1] = character;
-    document.getElementById('box8').innerHTML = character
-    document.getElementById('box8').setAttribute('disabled', '')
-  };
-  if (value == 9) {
-    console.log(arr);
-    arr[2][2] = character;
-    document.getElementById('box9').innerHTML = character
-    document.getElementById('box9').setAttribute('disabled', '')
-  };
-  return arr;
-}
-function changeCharacter(character) {
-
-  let newCharacter = ''
-
-  if (character == 'x') {
-    newCharacter += 'o'
+  gameOver() {
+    document.querySelector('main').style.filter = 'blur(5px)';
+    document.querySelector('h2').classList.toggle('hidden');
   }
-  if (character == 'o') {
-    newCharacter += 'x'
-  }
-  document.querySelector('h3').innerText = `${newCharacter.toUpperCase()}'s turn`
-
-  return newCharacter
 }
 
-let count = 0
-function didSomeoneWin(character) {
+const ticTacToe = new TicTacToe
+ticTacToe.startGame()
 
-  // horizontal win check
-  for (let y = 0; y < arr.length; y++) {
-    const row = arr[y];
-    console.log(row[0] == character && row[1] == character && row[2] == character)
-    if (row[0] == character && row[1] == character && row[2] == character) {
-      return someoneWon(character);
-    }
-  };
-  //vertical win check
-  //arr[0][0], arr[1][0], arr[2][0]
-  for (let x = 0; x < arr.length; x++) {
-    if (arr[0][x] == character && arr[1][x] == character && arr[2][x] == character) {
-      return someoneWon(character);
-    }
-  };
-  //diagonal win check
-  //0,0 1,1 2,2
-  //2,0 1,1 0,2
-  if (arr[0][0] === character && arr[1][1] === character && arr[2][2] === character) {
-    return someoneWon(character);
-  }
-  if (arr[2][0] == character && arr[1][1] == character && arr[0][2] == character) {
-    return someoneWon(character);
-  }
-  //if all boxes are filled, it's a draw
-  if (count == 8) {
-    document.querySelector('h2').innerText = `IT'S A TIE!`
-    gameOver()
-  }
-  //else change to next player's turn
-  count++
-};
 
-function gameOver() {
-  document.querySelector('main').style.filter = 'blur(5px)';
-  // document.querySelector('h2').classList.add('animation');
-  document.querySelector('h2').classList.toggle('hidden');
 
-}
 
-function someoneWon(character) {
-  document.querySelector('h2').innerText = `PLAYER ${character.toUpperCase()} WON!`;
-  gameOver()
 
-  //disable all boxes
-  document.getElementById(`box1`).setAttribute('disabled', '')
-  document.getElementById(`box2`).setAttribute('disabled', '')
-  document.getElementById(`box3`).setAttribute('disabled', '')
-  document.getElementById(`box4`).setAttribute('disabled', '')
-  document.getElementById(`box5`).setAttribute('disabled', '')
-  document.getElementById(`box6`).setAttribute('disabled', '')
-  document.getElementById(`box7`).setAttribute('disabled', '')
-  document.getElementById(`box8`).setAttribute('disabled', '')
-  document.getElementById(`box9`).setAttribute('disabled', '')
-}
