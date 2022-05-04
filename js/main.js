@@ -89,17 +89,13 @@ function addCharacter(character, value) {
   return arr;
 }
 function changeCharacter(character) {
-
-  let newCharacter = ''
-
   if (character == 'x') {
-    newCharacter += 'o'
+    newCharacter = 'o'
   }
   if (character == 'o') {
-    newCharacter += 'x'
+    newCharacter = 'x'
   }
   document.querySelector('h3').innerText = `${newCharacter.toUpperCase()}'s turn`
-
   return newCharacter
 }
 
