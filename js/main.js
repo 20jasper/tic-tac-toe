@@ -11,7 +11,6 @@ function firstPlayer() {
 }
 
 keys.addEventListener('click', event => {
-  console.log(event);
   const { target } = event;
   const { value } = target;
   if (!target.matches('button')) {
@@ -20,7 +19,7 @@ keys.addEventListener('click', event => {
     //add character to array
     addCharacter(currentPlayer, value);
     //check to see if character won/draw
-    console.log(didSomeoneWin(currentPlayer))
+    didSomeoneWin(currentPlayer)
     //change character 
     currentPlayer = changeCharacter(currentPlayer)
   }
@@ -33,57 +32,47 @@ const arr = [
 ];
 
 function addCharacter(character, value) {
-  console.log({ character, value });
   if (value == 1) {
-    console.log(arr);
     arr[0][0] = character;
     document.getElementById('box1').innerHTML = character
     document.getElementById('box1').setAttribute('disabled', '')
   };
   if (value == 2) {
-    console.log(arr)
     arr[0][1] = character;
     document.getElementById('box2').innerHTML = character
     document.getElementById('box2').setAttribute('disabled', '')
   };
   if (value == 3) {
-    console.log(arr);
     arr[0][2] = character;
     document.getElementById('box3').innerHTML = character
     document.getElementById('box3').setAttribute('disabled', '')
   };
   if (value == 4) {
-    console.log(arr);
     arr[1][0] = character;
     document.getElementById('box4').innerHTML = character
     document.getElementById('box4').setAttribute('disabled', '')
   };
   if (value == 5) {
-    console.log(arr);
     arr[1][1] = character;
     document.getElementById('box5').innerHTML = character
     document.getElementById('box5').setAttribute('disabled', '')
   };
   if (value == 6) {
-    console.log(arr);
     arr[1][2] = character;
     document.getElementById('box6').innerHTML = character
     document.getElementById('box6').setAttribute('disabled', '')
   };
   if (value == 7) {
-    console.log(arr);
     arr[2][0] = character;
     document.getElementById('box7').innerHTML = character
     document.getElementById('box7').setAttribute('disabled', '')
   };
   if (value == 8) {
-    console.log(arr);
     arr[2][1] = character;
     document.getElementById('box8').innerHTML = character
     document.getElementById('box8').setAttribute('disabled', '')
   };
   if (value == 9) {
-    console.log(arr);
     arr[2][2] = character;
     document.getElementById('box9').innerHTML = character
     document.getElementById('box9').setAttribute('disabled', '')
@@ -111,7 +100,6 @@ function didSomeoneWin(character) {
   // horizontal win check
   for (let y = 0; y < arr.length; y++) {
     const row = arr[y];
-    console.log(row[0] == character && row[1] == character && row[2] == character)
     if (row[0] == character && row[1] == character && row[2] == character) {
       return someoneWon(character);
     }
