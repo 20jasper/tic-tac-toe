@@ -1,4 +1,26 @@
-const keys = document.querySelector('.gamearea');
+class TicTacToe {
+  addEventListeners() {
+    const keys = document.querySelector('.gamearea');
+    keys.addEventListener('click', event => {
+      const { target } = event;
+      const { value } = target;
+      if (!target.matches('button')) {
+        return;
+      } else {
+        //add character to array
+        addCharacter(currentPlayer, value);
+        //check to see if character won/draw
+        didSomeoneWin(currentPlayer)
+        //change character 
+        currentPlayer = changeCharacter(currentPlayer)
+      }
+    });
+  }
+}
+
+const ticTacToe = new TicTacToe
+ticTacToe.addEventListeners()
+
 let currentPlayer = firstPlayer()
 document.querySelector('h3').innerText = `${currentPlayer.toUpperCase()}'s turn`
 
@@ -10,20 +32,7 @@ function firstPlayer() {
   return 'o'
 }
 
-keys.addEventListener('click', event => {
-  const { target } = event;
-  const { value } = target;
-  if (!target.matches('button')) {
-    return;
-  } else {
-    //add character to array
-    addCharacter(currentPlayer, value);
-    //check to see if character won/draw
-    didSomeoneWin(currentPlayer)
-    //change character 
-    currentPlayer = changeCharacter(currentPlayer)
-  }
-});
+
 
 const arr = [
   [null, null, null],
