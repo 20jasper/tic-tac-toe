@@ -22,6 +22,8 @@ class TicTacToe {
       if (target.matches('button')) {
         //add character to array
         this.addCharacter(value);
+        //check to see if character won/draw
+        this.didSomeoneWin()
       }
     });
   }
@@ -33,7 +35,7 @@ class TicTacToe {
     document.querySelector('h3').innerText = `${'o'.toUpperCase()}'s turn`
     return 'o'
   }
-  changeCharacter() {
+  nextTurn() {
     this.turn++
     let nextCharacter
     if (this.currentPlayer == 'x') {
@@ -42,8 +44,8 @@ class TicTacToe {
     if (this.currentPlayer == 'o') {
       nextCharacter = 'x'
     }
-    document.querySelector('h3').innerText = `${this.currentPlayer.toUpperCase()}'s turn`
     this.currentPlayer = nextCharacter
+    document.querySelector('h3').innerText = `${this.currentPlayer.toUpperCase()}'s turn`
   }
   addCharacter(value) {
     if (value == 1) {
@@ -91,15 +93,13 @@ class TicTacToe {
       document.getElementById('box9').innerHTML = this.currentPlayer
       document.getElementById('box9').setAttribute('disabled', '')
     };
-    //check to see if character won/draw
-    this.didSomeoneWin()
   }
   didSomeoneWin() {
     // horizontal win check
     for (let y = 0; y < ticTacToe.gameBoard.length; y++) {
       const row = ticTacToe.gameBoard[y];
       if (row[0] == this.currentPlayer && row[1] == this.currentPlayer && row[2] == this.currentPlayer) {
-        return this.someoneWon();
+        this.someoneWon();
       }
     };
     //vertical win check
@@ -118,10 +118,10 @@ class TicTacToe {
     //if all boxes are filled, it's a draw
     if (this.turn == 8) {
       document.querySelector('h2').innerText = `IT'S A TIE!`
-      this.gameOver()
+      return this.gameOver()
     }
     //change character 
-    this.changeCharacter()
+    this.nextTurn()
   };
   someoneWon() {
     document.querySelector('h2').innerText = `PLAYER ${this.currentPlayer.toUpperCase()} WON!`;
