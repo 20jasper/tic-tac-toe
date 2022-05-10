@@ -28,14 +28,15 @@ class TicTacToe {
     });
   }
   firstPlayer() {
+    let firstPlayer = 'o'
     if (Math.random() * 2 > 1) {
-      document.querySelector('h3').innerText = `${'x'.toUpperCase()}'s turn`
-      return 'x'
+      firstPlayer = 'x'
     }
-    document.querySelector('h3').innerText = `${'o'.toUpperCase()}'s turn`
-    return 'o'
+    document.querySelector('h3').innerText = `${firstPlayer.toUpperCase()}'s turn`
+    return firstPlayer
   }
   nextTurn() {
+    //increment turn counter
     this.turn++
     let nextCharacter
     if (this.currentPlayer == 'x') {
