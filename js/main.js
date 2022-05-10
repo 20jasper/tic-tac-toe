@@ -128,15 +128,9 @@ class TicTacToe {
     this.gameOver()
 
     //disable all boxes
-    document.getElementById(`box1`).setAttribute('disabled', '')
-    document.getElementById(`box2`).setAttribute('disabled', '')
-    document.getElementById(`box3`).setAttribute('disabled', '')
-    document.getElementById(`box4`).setAttribute('disabled', '')
-    document.getElementById(`box5`).setAttribute('disabled', '')
-    document.getElementById(`box6`).setAttribute('disabled', '')
-    document.getElementById(`box7`).setAttribute('disabled', '')
-    document.getElementById(`box8`).setAttribute('disabled', '')
-    document.getElementById(`box9`).setAttribute('disabled', '')
+    for (let i = 1; i <= 9; i++) {
+      document.getElementById(`box${i}`).setAttribute('disabled', '')
+    }
   }
   gameOver() {
     document.querySelector('main').style.filter = 'blur(5px)';
