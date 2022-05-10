@@ -50,51 +50,12 @@ class TicTacToe {
     document.querySelector('h3').innerText = `${this.currentPlayer.toUpperCase()}'s turn`
   }
   addCharacter(value) {
-    if (value == 1) {
-      ticTacToe.gameBoard[0][0] = this.currentPlayer;
-      document.getElementById('box1').innerHTML = this.currentPlayer
-      document.getElementById('box1').setAttribute('disabled', '')
-    };
-    if (value == 2) {
-      ticTacToe.gameBoard[0][1] = this.currentPlayer;
-      document.getElementById('box2').innerHTML = this.currentPlayer
-      document.getElementById('box2').setAttribute('disabled', '')
-    };
-    if (value == 3) {
-      ticTacToe.gameBoard[0][2] = this.currentPlayer;
-      document.getElementById('box3').innerHTML = this.currentPlayer
-      document.getElementById('box3').setAttribute('disabled', '')
-    };
-    if (value == 4) {
-      ticTacToe.gameBoard[1][0] = this.currentPlayer;
-      document.getElementById('box4').innerHTML = this.currentPlayer
-      document.getElementById('box4').setAttribute('disabled', '')
-    };
-    if (value == 5) {
-      ticTacToe.gameBoard[1][1] = this.currentPlayer;
-      document.getElementById('box5').innerHTML = this.currentPlayer
-      document.getElementById('box5').setAttribute('disabled', '')
-    };
-    if (value == 6) {
-      ticTacToe.gameBoard[1][2] = this.currentPlayer;
-      document.getElementById('box6').innerHTML = this.currentPlayer
-      document.getElementById('box6').setAttribute('disabled', '')
-    };
-    if (value == 7) {
-      ticTacToe.gameBoard[2][0] = this.currentPlayer;
-      document.getElementById('box7').innerHTML = this.currentPlayer
-      document.getElementById('box7').setAttribute('disabled', '')
-    };
-    if (value == 8) {
-      ticTacToe.gameBoard[2][1] = this.currentPlayer;
-      document.getElementById('box8').innerHTML = this.currentPlayer
-      document.getElementById('box8').setAttribute('disabled', '')
-    };
-    if (value == 9) {
-      ticTacToe.gameBoard[2][2] = this.currentPlayer;
-      document.getElementById('box9').innerHTML = this.currentPlayer
-      document.getElementById('box9').setAttribute('disabled', '')
-    };
+    const quotient = Math.floor(value / 3)
+    const remainder = value % 3
+    const boxId = `box${value}`
+    ticTacToe.gameBoard[quotient][remainder] = this.currentPlayer;
+    document.getElementById(boxId).innerHTML = this.currentPlayer
+    document.getElementById(boxId).setAttribute('disabled', '')
   }
   didSomeoneWin() {
     // horizontal win check
