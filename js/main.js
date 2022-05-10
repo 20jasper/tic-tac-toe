@@ -38,14 +38,15 @@ class TicTacToe {
   nextTurn() {
     //increment turn counter
     this.turn++
-    let nextCharacter
+    this.changeCurrentPlayer()
+  }
+  changeCurrentPlayer() {
+    // change current character
     if (this.currentPlayer == 'x') {
-      nextCharacter = 'o'
+      this.currentPlayer = 'o'
+    } else if (this.currentPlayer == 'o') {
+      this.currentPlayer = 'x'
     }
-    if (this.currentPlayer == 'o') {
-      nextCharacter = 'x'
-    }
-    this.currentPlayer = nextCharacter
     document.querySelector('h3').innerText = `${this.currentPlayer.toUpperCase()}'s turn`
   }
   addCharacter(value) {
