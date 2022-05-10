@@ -53,29 +53,30 @@ class TicTacToe {
     const quotient = Math.floor(value / 3)
     const remainder = value % 3
     const boxId = `box${value}`
-    ticTacToe.gameBoard[quotient][remainder] = this.currentPlayer;
+    let gameBoardSquare = this.gameBoard[quotient][remainder]
+    gameBoardSquare = this.currentPlayer;
     document.getElementById(boxId).innerHTML = this.currentPlayer
     document.getElementById(boxId).setAttribute('disabled', '')
   }
   didSomeoneWin() {
     // horizontal win check
-    for (let y = 0; y < ticTacToe.gameBoard.length; y++) {
-      const row = ticTacToe.gameBoard[y];
+    for (let y = 0; y < this.gameBoard.length; y++) {
+      const row = this.gameBoard[y];
       if (row[0] == this.currentPlayer && row[1] == this.currentPlayer && row[2] == this.currentPlayer) {
-        this.someoneWon();
+        return this.someoneWon();
       }
     };
     //vertical win check
-    for (let x = 0; x < ticTacToe.gameBoard.length; x++) {
-      if (ticTacToe.gameBoard[0][x] == this.currentPlayer && ticTacToe.gameBoard[1][x] == this.currentPlayer && ticTacToe.gameBoard[2][x] == this.currentPlayer) {
+    for (let x = 0; x < this.gameBoard.length; x++) {
+      if (this.gameBoard[0][x] == this.currentPlayer && this.gameBoard[1][x] == this.currentPlayer && this.gameBoard[2][x] == this.currentPlayer) {
         return this.someoneWon();
       }
     };
     //diagonal win check
-    if (ticTacToe.gameBoard[0][0] === this.currentPlayer && ticTacToe.gameBoard[1][1] === this.currentPlayer && ticTacToe.gameBoard[2][2] === this.currentPlayer) {
+    if (this.gameBoard[0][0] === this.currentPlayer && this.gameBoard[1][1] === this.currentPlayer && this.gameBoard[2][2] === this.currentPlayer) {
       return this.someoneWon();
     }
-    if (ticTacToe.gameBoard[2][0] == this.currentPlayer && ticTacToe.gameBoard[1][1] == this.currentPlayer && ticTacToe.gameBoard[0][2] == this.currentPlayer) {
+    if (this.gameBoard[2][0] == this.currentPlayer && this.gameBoard[1][1] == this.currentPlayer && this.gameBoard[0][2] == this.currentPlayer) {
       return this.someoneWon();
     }
     //if all boxes are filled, it's a draw
@@ -91,7 +92,7 @@ class TicTacToe {
     this.gameOver()
 
     //disable all boxes
-    for (let i = 1; i <= 9; i++) {
+    for (let i = 0; i < 9; i++) {
       document.getElementById(`box${i}`).setAttribute('disabled', '')
     }
   }
