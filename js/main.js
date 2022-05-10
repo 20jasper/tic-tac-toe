@@ -10,6 +10,7 @@ class TicTacToe {
     this.turn = 0
   }
   startGame() {
+    //listen for clicks on boxes
     this.addEventListeners()
   }
   addEventListeners() {
@@ -17,9 +18,8 @@ class TicTacToe {
     keys.addEventListener('click', event => {
       const { target } = event;
       const { value } = target;
-      if (!target.matches('button')) {
-        return;
-      } else {
+      //if box hasn't already been clicked
+      if (target.matches('button')) {
         //add character to array
         this.addCharacter(value);
       }
