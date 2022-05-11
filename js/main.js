@@ -53,8 +53,7 @@ class TicTacToe {
     const quotient = Math.floor(value / 3)
     const remainder = value % 3
     const boxId = `box${value}`
-    let gameBoardSquare = this.gameBoard[quotient][remainder]
-    gameBoardSquare = this.currentPlayer;
+    this.gameBoard[quotient][remainder] = this.currentPlayer
     document.getElementById(boxId).innerHTML = this.currentPlayer
     document.getElementById(boxId).setAttribute('disabled', '')
   }
